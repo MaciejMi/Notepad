@@ -79,6 +79,11 @@ public class Notepad extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jTextArea1.setToolTipText("");
         jTextArea1.setWrapStyleWord(true);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel1.setText("Characters");
@@ -275,6 +280,13 @@ public class Notepad extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         this.setFontFamily(String.valueOf(jComboBox1.getSelectedItem()));
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
+        String text = jTextArea1.getText();
+        jLabel2.setText(String.valueOf(text.length()));
+        String[] words = text.split(" ");
+        jLabel4.setText(String.valueOf(words.length));
+    }//GEN-LAST:event_jTextArea1KeyReleased
 
     /**
      * @param args the command line arguments
