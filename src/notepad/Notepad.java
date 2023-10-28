@@ -4,12 +4,19 @@
  */
 package notepad;
 
+import java.awt.Font;
+
 /**
  *
  * @author macie
  */
 public class Notepad extends javax.swing.JFrame {
 
+    // Setting default values
+    public String fontFamily = "Arial";
+    public int fontSize = 16;
+    public int fontStyle = Font.PLAIN;
+    
     /**
      * Creates new form Notepad
      */
@@ -33,12 +40,12 @@ public class Notepad extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -78,17 +85,32 @@ public class Notepad extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arial", "SansSerif", "Comic-sans" }));
 
-        jButton1.setText("B");
-
-        jButton2.setText("I");
-
         jTextField1.setText("16");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Styles");
 
         jLabel6.setText("Font size");
 
         jLabel7.setText("Font family");
+
+        jToggleButton1.setText("I");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton2.setText("B");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -135,17 +157,17 @@ public class Notepad extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel5)
+                        .addGap(11, 11, 11)
+                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(34, 34, 34)
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,7 +177,7 @@ public class Notepad extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -163,12 +185,12 @@ public class Notepad extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jToggleButton1)
+                    .addComponent(jToggleButton2))
                 .addGap(10, 10, 10))
         );
 
@@ -176,6 +198,63 @@ public class Notepad extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void setFontSize(int fontSize){
+        if (fontSize > 10){
+            this.fontSize = fontSize;
+        }else{
+            this.fontSize = 10; 
+        }
+        jTextArea1.setFont(new Font(this.fontFamily, this.fontStyle, this.fontSize));
+    }
+    
+    public void setFontStyle(int fontStyle){
+        this.fontStyle = fontStyle;
+        jTextArea1.setFont(new Font(this.fontFamily, this.fontStyle, this.fontSize));
+    }
+    
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        try{
+            int fontSize = Integer.parseInt(jTextField1.getText());
+            this.setFontSize(fontSize);
+        }catch (Exception e){
+            System.out.print(e);
+        }
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        if(jToggleButton2.isSelected()){
+            if (this.fontStyle == Font.ITALIC){
+                this.fontStyle = Font.ITALIC | Font.BOLD;
+            }else{
+                this.fontStyle = Font.BOLD;
+            }
+        }else{
+            if (this.fontStyle == (Font.BOLD | Font.ITALIC)){
+                this.fontStyle = Font.ITALIC;
+            }else{
+                this.fontStyle = Font.PLAIN;
+            }
+        }
+        jTextArea1.setFont(new Font(this.fontFamily, this.fontStyle, this.fontSize));
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        if(jToggleButton1.isSelected()){
+            if (this.fontStyle == Font.BOLD){
+                this.fontStyle = Font.ITALIC | Font.BOLD;
+            }else{
+                this.fontStyle = Font.ITALIC;
+            }
+        }else{
+            if (this.fontStyle == (Font.BOLD | Font.ITALIC)){
+                this.fontStyle = Font.BOLD;
+            }else{
+                this.fontStyle = Font.PLAIN;
+            }
+        }
+        jTextArea1.setFont(new Font(this.fontFamily, this.fontStyle, this.fontSize));
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,8 +292,6 @@ public class Notepad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -233,5 +310,7 @@ public class Notepad extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 }
