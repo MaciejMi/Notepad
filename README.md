@@ -1,7 +1,7 @@
 # Notepad
 Notepad is a tool for writing text and saving it to a file or opening it from files. Moreover, you can style your text, that is, make the font bold, change the font family and font size.
 
-![image](https://github.com/MaciejMi/Notepad/assets/107648916/eec9e3f8-e52b-4b8a-9a90-15ccd1a9263c)
+![image](https://github.com/MaciejMi/Notepad/assets/107648916/2fa1fa6c-bba3-4918-8574-de0cfb177f71)
 
 ## Run Locally
 
