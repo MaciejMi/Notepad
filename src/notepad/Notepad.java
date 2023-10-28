@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -148,10 +150,20 @@ public class Notepad extends javax.swing.JFrame {
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem2.setText("Save");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem3.setText("Save As");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -333,6 +345,43 @@ public class Notepad extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        File file = null;
+        if (this.currentSavePathDirectory == ""){
+             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showSaveDialog(null);
+            file = fileChooser.getSelectedFile();
+        }else{
+            file = new File(this.currentSavePathDirectory);
+        }
+        try {
+            if (file != null){
+                FileWriter fw = new FileWriter(file);
+                fw.write(jTextArea1.getText());
+                fw.close();
+                this.currentSavePathDirectory = file.getAbsolutePath();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Notepad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showSaveDialog(null);
+        File file = fileChooser.getSelectedFile();
+        try {
+            if (file != null){
+                FileWriter fw = new FileWriter(file);
+                fw.write(jTextArea1.getText());
+                fw.close();
+                this.currentSavePathDirectory = file.getAbsolutePath();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Notepad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
