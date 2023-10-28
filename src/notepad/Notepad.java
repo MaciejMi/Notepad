@@ -5,6 +5,9 @@
 package notepad;
 
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -22,6 +25,9 @@ public class Notepad extends javax.swing.JFrame {
      */
     public Notepad() {
         initComponents();
+        GraphicsEnvironment local_env = GraphicsEnvironment.getLocalGraphicsEnvironment(); 
+        String allFonts[] = local_env.getAvailableFontFamilyNames();
+        jComboBox1.setModel(new DefaultComboBoxModel(allFonts));
     }
 
     /**
@@ -84,6 +90,11 @@ public class Notepad extends javax.swing.JFrame {
         jLabel4.setText("0");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arial", "SansSerif", "Comic-sans" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setText("16");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +224,11 @@ public class Notepad extends javax.swing.JFrame {
         jTextArea1.setFont(new Font(this.fontFamily, this.fontStyle, this.fontSize));
     }
     
+    public void setFontFamily(String fontFamily){
+        this.fontFamily = fontFamily;
+        jTextArea1.setFont(new Font(this.fontFamily, this.fontStyle, this.fontSize));
+    }
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         try{
             int fontSize = Integer.parseInt(jTextField1.getText());
@@ -255,6 +271,10 @@ public class Notepad extends javax.swing.JFrame {
         }
         jTextArea1.setFont(new Font(this.fontFamily, this.fontStyle, this.fontSize));
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        this.setFontFamily(String.valueOf(jComboBox1.getSelectedItem()));
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
