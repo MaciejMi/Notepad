@@ -332,13 +332,15 @@ public class Notepad extends javax.swing.JFrame {
         String text = "";
         
         try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()){
-               text += scanner.nextLine();
-               text += "\n";
+            if (file != null){
+                  Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()){
+                   text += scanner.nextLine();
+                   text += "\n";
+                }
+                jTextArea1.setText(text);
+                this.currentSavePathDirectory = file.getAbsolutePath();
             }
-            jTextArea1.setText(text);
-            this.currentSavePathDirectory = file.getAbsolutePath();
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Notepad.class.getName()).log(Level.SEVERE, null, ex);
