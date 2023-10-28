@@ -6,8 +6,14 @@ package notepad;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -19,6 +25,7 @@ public class Notepad extends javax.swing.JFrame {
     public String fontFamily = "Arial";
     public int fontSize = 16;
     public int fontStyle = Font.PLAIN;
+    public String currentSavePathDirectory = "";
     
     /**
      * Creates new form Notepad
@@ -132,6 +139,11 @@ public class Notepad extends javax.swing.JFrame {
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setText("Open");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -148,6 +160,11 @@ public class Notepad extends javax.swing.JFrame {
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("Wrap words");
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jCheckBoxMenuItem1);
 
         jMenuBar1.add(jMenu2);
@@ -287,6 +304,35 @@ public class Notepad extends javax.swing.JFrame {
         String[] words = text.split(" ");
         jLabel4.setText(String.valueOf(words.length));
     }//GEN-LAST:event_jTextArea1KeyReleased
+
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+        if (jCheckBoxMenuItem1.isSelected()){
+            jTextArea1.setLineWrap(true);
+        }else{
+            jTextArea1.setLineWrap(false);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(null);
+        File file = fileChooser.getSelectedFile();
+        String text = "";
+        
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()){
+               text += scanner.nextLine();
+               text += "\n";
+            }
+            jTextArea1.setText(text);
+            this.currentSavePathDirectory = file.getAbsolutePath();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Notepad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
